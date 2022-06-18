@@ -4,6 +4,8 @@
 
 #### But if you are not familiar with NODE.JS you need to see few videos.
 [Require Function](https://www.youtube.com/watch?v=xHLd36QoS4k)
+
+
 [Module Patterns](https://www.youtube.com/watch?v=9UaZtgB5tQI)
 
 ### Why we are learning ETHER.js
