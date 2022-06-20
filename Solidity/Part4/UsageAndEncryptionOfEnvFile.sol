@@ -12,6 +12,11 @@ PRIVATE_KAY_PASSWORD = password;
 
 
 
+
+
+
+
+
 A breif Intro about Environment Variables
 
 An environment variable is a variable whose value is set outside the program, typically through 
