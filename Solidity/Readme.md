@@ -1,7 +1,7 @@
 # Tips
 Watch a video or follow any sources to learn , for the things which are confusing follow the docs BLINDLY(not too much sources right now).
 
-[Hardhat's Tutorail](https://hardhat.org/tutorial)
+[Hardhat's Tutorial](https://hardhat.org/tutorial)
 
 [Ethers's Docs](https://docs.ethers.io/v5/)
 
