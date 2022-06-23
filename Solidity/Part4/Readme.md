@@ -15,3 +15,9 @@
 The ethers.js library aims to be a complete and compact library for interacting 
 with the Ethereum Blockchain and its ecosystem. It was originally designed for use with ethers.io and
 has since expanded into a more general-purpose library.
+
+TIP:Do not solely depend on hardhat basics folder for learning
+
+## Other Resources
+
+[Some Ways of wallet integration](https://www.youtube.com/watch?v=pdsYCkUWrgQ)
