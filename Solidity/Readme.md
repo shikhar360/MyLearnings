@@ -1,5 +1,5 @@
 # Tips
-Watch a video or follow any sources to learn , for the things which are confusing follow the docs BLINDLY(not too much sources right now).
+Watch a video or follow any sources to learn , for the things which are confusing follow the DOCUMENTATION.
 
 [Hardhat's Tutorial](https://hardhat.org/tutorial)
 
