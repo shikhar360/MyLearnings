@@ -1,7 +1,9 @@
 pragma solidity >=0.5.0 <0.6.0;
 
 contract ZombieFactory {
-
+    
+     event NewZombie(uint zombieId , string name , uint dna);       // Here in event we dont use underscore and memory keyword // it also has a emit function
+    
     uint dnaDigits= 16
     
     struct Person {         //type variable
@@ -16,7 +18,11 @@ contract ZombieFactory {
       //  Zombie adam = Zombie(_name , _dna);         // Zombie adam is a struct which is makinga a new zombie with the name and dna that is passing from the arguments
       //  zombies.push(adam);                          // here we are pushing the same zombie in a array
 
-        zombies.push(Zombie(_name , _dna))            // here we are doing it all the things in a one line
+       // zombies.push(Zombie(_name , _dna)) ;           // here we are doing it all the things in a one line
+       
+       
+       uint id = zombies.push(Zombie(_name , _dna))-1;    
+        emit NewZombie( id , _name , _dna );
     }
     
      function _generateRandomDna (string memory _str )private view returns(uint){
@@ -88,5 +94,8 @@ uint8 c = a * uint8(b);
 
 Events are a way for your contract to communicate that something happened on the blockchain to your app front-end,
 which can be 'listening' for certain events and take action when they happen.
+This has 2 things 1st the event keyword that is present in the contract after the states declared,
+and the other thing is (emit) that is in the function which is waiting for something to happen so that it could emmit the message 
+
 
 */
