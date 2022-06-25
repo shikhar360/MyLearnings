@@ -150,7 +150,7 @@ function someFunction() public {
 */
 
 
-/*
+
 //File2.sol
 
 pragma solidity >=0.5.0 <0.6.0;
@@ -173,19 +173,33 @@ contract KittyInterface{                                  // This is how we crea
 }
 
 contract ZombieFeeding is ZombieFactory {                    // this contract is using the interface
-
 address ckAddress = 0x06012c8cf97BEaD5deAe237070F9587f8E7A266d;
                                                                      // in order to use the interface we first have to initialize that inside another Contract
    KittyInterface kittyContract = KittyInterface(ckAddress);
 
- function feedAndMultiply(uint _zombieId, uint _targetDna) public {
+ function feedAndMultiply(uint _zombieId, uint _targetDna , string memory _species /* _species added*/ ) public {
     require(msg.sender == zombieToOwner[_zombieId]);
     Zombie storage myZombie = zombies[_zombieId];
     _targetDna = _targetDna % dnaModulus;
     uint newDna = (myZombie.dna + _targetDna) / 2;
+    
+    if(keecak256(abi.encodePacked(_species)) == keecak256(abi.encodePacked("kitty"))){        // if statement in solidity works same  as JS
+      newDna = newDna - newDna % 100 + 99;  
+    }
+    
     _createZombie("NoName" , newDna);
   }
 
+ function feedOnKitty(uint _zombieId , uint _kittyId)public{
+     uint kittyDna;
+      (,,,,,,,,,kittyDna) = kittyContract.getKitty(_kittyId);    // lots of commas because getkitty function returns total 10 values , so to excess the last one 
+    
+      // feedAndMultiply(_zombieId , kittyDna);
+      
+      feedAndMultiply(_zombieId, kittyDna , "kitty");  //updated because above feed and multiply updated
+  }
+
+
 }
-*/
+
 
