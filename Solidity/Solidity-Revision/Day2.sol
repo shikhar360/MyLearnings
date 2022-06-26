@@ -135,12 +135,16 @@ contract NumberInterface {                                             //also we
   function getNum(address _myAddress) public view returns (uint);      //notice we dont have curly braces here , by this way compiler will know its a interface
 }
 
+contract otherContract{
+
+NumberInterface numberContract = NumberInterface(contractAddress);   //first we will initialize in the contract in which we want to use the interface
+
 function someFunction() public {
-    uint num = numberContract.getNum(msg.sender);  //this is how we use it
+    uint num = numberContract.getNum(msg.sender);                 //this is how we use it
   
   }
 
-
+}
 
 
 
