@@ -11,7 +11,12 @@ contract ZombieFactory {
      string name;
     }
     
-     Zombie[] public zombies;    // we can create array of structs  using this syntax   // zombie struct will be pushed in a array called zombies
+     Zombie[] public zombies;   
+ //created array of structs  using this syntax , zombie struct will be pushed in a array called zombies 
+                              // OR
+ //type of Array is Zombie Struct whose variable name is zombies
+ 
+ 
      
      function /*createZombie*/ _createZombies (string memory _name, uint _dna) /*public*/ private {       //Remove public with private and change the naming convention
      
