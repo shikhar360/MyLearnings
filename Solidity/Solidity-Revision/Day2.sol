@@ -58,7 +58,7 @@ mapping (address => uint) public accountBalance;
 We can write mapping likee this in which one type is associated to the other type
 
 contract something{
-mapping(uint=> name) public rollToName;
+mapping(uint=> string) public rollToName;
 
 function acssociate(uint256 _roll , string memory _name)public{
 rollToName[_roll] = _name;
@@ -129,8 +129,9 @@ contract LuckyNumber {
   }
 }
 
-and we want to access the getnum function then First we'd have to define an interface of the LuckyNumber contract by
-contract NumberInterface {         //also we dont have any state variable
+and we want to access the getNum function then First we'd have to define an interface of the LuckyNumber contract by
+
+contract NumberInterface {                                             //also we dont have any state variable
   function getNum(address _myAddress) public view returns (uint);      //notice we dont have curly braces here , by this way compiler will know its a interface
 }
 
