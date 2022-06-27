@@ -25,3 +25,15 @@ const runMain = async () => {
 };
 
 runMain();
+
+
+/*
+HARDHAT CONFIG FILE ADDED NETWORK
+ networks: {
+    rinkeby: {
+      url: process.env.ALCHEMY_URL,
+      accounts: [process.env.PRIVATE_KEY],
+    },
+  },
+
+*/
