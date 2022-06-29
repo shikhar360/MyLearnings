@@ -16,7 +16,7 @@ export default function App() {
   console.log(allWaves)
   
   
-  const contractAddress = "0x4237f9E19cc3A1110309151e6C9D076708cff977";
+  const contractAddress = "0xAa3373EE5c00aA1d75cB3Aa8Cd9F0026C3D0bc77";
   
   const contractABI = abi;
 
