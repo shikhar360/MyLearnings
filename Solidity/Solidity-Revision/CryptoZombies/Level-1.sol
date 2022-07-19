@@ -11,10 +11,14 @@ contract ZombieFactory {
      string name;
     }
     
+    
+    
      Zombie[] public zombies;   
+     
  //created array of structs  using this syntax , zombie struct will be pushed in a array called zombies 
                               // OR
  //type of Array is Zombie Struct whose variable name is zombies
+ 
  
  
      
@@ -30,10 +34,14 @@ contract ZombieFactory {
         emit NewZombie( id , _name , _dna );
     }
     
+    
+    
      function _generateRandomDna (string memory _str )private view returns(uint){
       uint rand = uint(keccak256(abi.encodePacked(_str)));     // typecasting a whole string that we are getting from a keccak256 into a uint and saving it into a uint called rand
       return rand % dnaModulus;
     }
+    
+    
     
     function createRandomZombie(string memory _name)public{
       uint randDna = _generateRandomDna(_name);
@@ -44,20 +52,30 @@ contract ZombieFactory {
 /*
 State variables are permanently stored in contract storage. This means they're
 written to the Ethereum blockchain. Think of them like writing to a DB.
+
 (TVV Format)[Type , Visibility , Variable]
+
 uint is (unsigned integer) means NON-NEGATIVE opposite of int(can be posiitive and negative)
+
 Structs allow you to create more complicated data types that have multiple properties.
 They are useful for grouping together related data.
 It can be declared outside of a contract and imported in another contract
+
+
+
 Arrays
 Two types:
+
 FIXED ARRAYS
 uint[2] fixedArray;   // Array with a fixed length of 2 elements:
 string[5] stringArray;   // another fixed Array, can contain 5 strings:
+
 DYNYNAMIC ARRAYS
 uint[] dynamicArray;    // a dynamic Array - has no fixed size, can keep growing:
  -----Memory Keyword is required for all reference types such as arrays, structs, mappings, and strings. Even while returning from a function-----
- 
+
+
+
  
 While writing a function in solidity. 
 
@@ -66,6 +84,7 @@ There are two ways in which you can pass an argument to a Solidity function:
 
 By value, which means that the Solidity compiler creates a new copy of the parameter's value and passes it to your function. This allows your
 function to modify the value without worrying that the value of the initial parameter gets changed.
+
 By reference, which means that your function is called with a... reference to the original variable. Thus, if your
 function changes the value of the variable it receives, the value of the original variable gets changed.
 
@@ -74,10 +93,11 @@ function changes the value of the variable it receives, the value of the origina
 
 Make functions private always and only make it public when you really want it to be public
 
+
 private function names has a convention of starting with an underscore (_).
 
-When the function doesn't actually change state in Solidity we could declare it as a view function.
 
+When the function doesn't actually change state in Solidity we could declare it as a view function.
 we can also mark a function pure when it is not accessing any data from the contract i.e depends on the arguments for returning any value.
 
 
@@ -101,4 +121,5 @@ which can be 'listening' for certain events and take action when they happen.
 
 This has 2 things 1st the event keyword that is present in the contract after the states declared,
 and the other thing is (emit) that is in the function which is waiting for something to happen so that it could emmit the message 
+
 */
