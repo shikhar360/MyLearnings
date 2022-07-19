@@ -14,18 +14,18 @@ contract ZombieFactory {
 
     Zombie[] public zombies;
 
-    mapping(uint => address) public zombieToOwner;           // more about this in comments
+    mapping(uint => address) public zombieToOwner;           // more about this in comments (associaing a uint to an address )
     mapping(address=> uint)  ownerZombieCount;
 
     function _createZombie(string memory _name, uint _dna) /*private*/ internal {    //made this a internal visibility so that other contracts can call this function
         uint id = zombies.push(Zombie(_name, _dna)) - 1;
-         zombieToOwner[id] = msg.sender;                    //mapping zombieToOwner is called
-        ownerZombieCount[msg.sender]++;                     //increasing the count of ownerZombieCount  
+        zombieToOwner[id] = msg.sender;                         //mapping zombieToOwner is called
+        ownerZombieCount[msg.sender]++;                         //increasing the count of ownerZombieCount  
         emit NewZombie(id, _name, _dna);
     } 
 
     function _generateRandomDna(string memory _str) private view returns (uint) {
-        uint rand = uint(keccak256(abi.encodePacked(_str)));
+        uint rand = uint(keccak256(abi.encodePacked(_str)));     
         return rand % dnaModulus;
     }
 
@@ -70,7 +70,7 @@ rollToName[_roll] = _name;
 
 }
 
-msg.sender and many others are global variables that are available to all functions.
+msg.sender and many others are global variables that are available to all FUNCTIONS.
 
 
 REQUIRE
