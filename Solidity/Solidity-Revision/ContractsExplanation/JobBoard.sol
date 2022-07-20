@@ -3,9 +3,14 @@
 pragma solidity ^ 0.8.0;
 
 contract JobBoard {
-
+    address public boardOwner;
     uint256 public jobID = 0;
 
+
+    constructor(){
+        boardOwner = msg.sender;
+    }    
+    
     struct Job {
         uint id ;
         string title;
@@ -18,8 +23,9 @@ contract JobBoard {
     }
 
     Job[] public jobsArray;
-    // mapping (uint => Job) public jobMap;
-    
+  
+    mapping (address => Job ) internal associatedJob ;
+
     function addJob(
         
         string memory _title,
@@ -53,4 +59,6 @@ contract JobBoard {
     function getAllJobsLength() public view returns(uint) {
         return jobsArray.length;
     }
+    
+    // function recruitingApplicant()
 }
