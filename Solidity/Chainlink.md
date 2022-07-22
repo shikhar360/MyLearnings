@@ -15,6 +15,31 @@ They then publish this data on-chain to a smart contract for anyone to pull from
 information of assets cheaper, more secure, decentralized, and more diligent than any centralized solution.
 The data feeds are one of the most battled tested solutions, being used by top protocols like Aave, Compound, and Synthetix for their DeFi protocols
 
+```solidity
+
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.0;
+
+import "@chainlink/contracts/src/v0.8/interfaces/AggregatorV3Interface.sol";  //import this to get data from the chainlink
+
+contract PriceConsumerV3 {
+    // ETH USD aggregator on the ETH Mainnet Chain
+    AggregatorV3Interface public priceFeed = AggregatorV3Interface(0x5f4eC3Df9cbd43714FE2740f5E3616155c5b8419);
+    // contract address directly in imported contract
+    //we can get address from the docs.
+    
+    function getLatestPrice() external view returns (int) {
+     (uint80 roundID,                // we will get a bunch of data from chainlink heere is the list of that
+     int price,           // <-- this is the one we want to return so we are using the destructuring method in solidity
+     uint startedAt,
+     uint timeStamp,
+     uint80 answeredInRound) = priceFeed.latestRoundData();
+     return price;        //returning what we want;
+    }
+    
+}
+```
+
 ### Chainlink Verifiable Randomness Function (Chainlink VRF) 🎲🔮
 
 Blockchains themselves are deterministic, and therefore, cannot get true randomness. We have to look outside the blockchain to get random numbers,
