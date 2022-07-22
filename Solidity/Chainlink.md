@@ -109,11 +109,17 @@ contract Capsule is KeeperCompatibleInterface {
         depositer = payable(msg.sender);
     }
 
+
+    //This is a method that Chainlink expects every Chainlink Keeper to implement will be called by
+    //a keeper as a query to see whether or not your contract requires upkeep
+    //This method will periodically be called by the Chainlink Keeper👇
+    
     function checkUpkeep(bytes calldata) external view override returns (bool, bytes memory) {
-      bool upkeepNeeded = timestamp > 0 && block.timestamp > timestamp;
+     bool upkeepNeeded = timestamp > 0 && block.timestamp > timestamp;
         return (upkeepNeeded, "0x");
     }
 
+//This👇 method will be called by a keeper when our checkUpkeep indicates it is time to do so
     function performUpkeep(bytes calldata) external override {
         require(block.timestamp > timestamp );
         depositer.transfer(address(this).balance);
