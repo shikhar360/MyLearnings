@@ -45,11 +45,82 @@ contract PriceConsumerV3 {
 Blockchains themselves are deterministic, and therefore, cannot get true randomness. We have to look outside the blockchain to get random numbers,
 but we don't want to get a number than can be snooped. Chainlink VRF is a proven way to get a random number that is cryptographically random.
 
+```solidity
+
+/ SPDX-License-Identifier: MIT
+pragma solidity ^0.8.0;
+
+import "@chainlink/contracts/src/v0.8/VRFConsumerBase.sol";    //we will use this to get random number 
+
+contract RandomNumberConsumer is VRFConsumerBase {    //we have to inherit the contract and in the constructor also
+    bytes32 public keyHash;             
+    uint256 public fee;
+    uint public randomResult ;
+    
+
+    constructor()  VRFConsumerBase(  
+    //while inheriting in the contract it require two parmeters (cordinator contract address and the Link Token address )
+    
+            0xf0d54349aDdcf704F77AE15b96510dEA15cb7952, // VRF Coordinator
+            0x514910771AF9Ca656af840dff83E8264EcF986CA  // LINK Token
+            
+        ) 
+        
+    {
+        keyHash = 0xAA77729D3466CA35AE8D28B3BBAC7CC36A5031EFDC430821C02BC31A238AF445;  // This key hash we wil get in docs
+        fee = 2 * 10 ** 18;      // we can set any fees we want while keeping the input decimal in mind    // fee = 0.1 * 10**18
+    }
+    
+    function getRandomNumber() public returns (bytes32) { 
+    // when the function will be called it will automaticall cal the fullfillRandomness function
+    //(It is basically a Request Function to the Oracle )
+    bytes32 _x = requestRandomness(keyHash , fee);        // It returns a byte32 that will be pushed in the fullfillrandomness
+    return _x;
+    }
+    
+    
+    //the byte32 from the above function will be sent as a arguments in this funcction and it will return a rndom number 
+    // but that random number will be very large thats why wecan use mods to get the require numbers
+    
+    function fulfillRandomness(bytes32, uint256 _x) internal override {
+     randomResult = _x ;    //_x.mod(20).add(1) will give number between 1 to 20 .mods gives 0 _ 19 
+    }
+}
+
+```
 ### Chainlink Keepers🤠
 
  A network of oracles delivering event driven decentralized computation. Right now, in order for the blockchain to change state, someone has to trigger a transaction.
  Chainlink Keepers allow us to do this in a decentralized context, allowing for us to have contract interact with each other programmatically.
  
+ ```solidity
+ // SPDX-License-Identifier: MIT
+pragma solidity ^0.8.4;
+
+import "@chainlink/contracts/src/v0.8/interfaces/KeeperCompatibleInterface.sol";
+
+contract Capsule is KeeperCompatibleInterface {   
+     uint public timestamp;
+     address payable depositer;
+
+    function deposit(uint _lockedUntil) external payable {
+        require(block.timestamp > timestamp);
+        timestamp = _lockedUntil;
+        depositer = payable(msg.sender);
+    }
+
+    function checkUpkeep(bytes calldata) external view override returns (bool, bytes memory) {
+      bool upkeepNeeded = timestamp > 0 && block.timestamp > timestamp;
+        return (upkeepNeeded, "0x");
+    }
+
+    function performUpkeep(bytes calldata) external override {
+        require(block.timestamp > timestamp );
+        depositer.transfer(address(this).balance);
+        delete timestamp;
+    }   
+}
+ ```
  ### Chainlink API Calls 🥶
  
   Chainlink API Calls are the piece of Chainlink infrastructure that allows unlimited customization. This features takes the most work to set up,
