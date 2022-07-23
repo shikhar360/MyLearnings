@@ -131,4 +131,52 @@ contract Capsule is KeeperCompatibleInterface {
  
   Chainlink API Calls are the piece of Chainlink infrastructure that allows unlimited customization. This features takes the most work to set up,
   but can be customized to make your smart contracts do roughly anything.
+  
+  ```solidity
+  // SPDX-License-Identifier: MIT
+pragma solidity ^0.8.4;
+
+import "@chainlink/contracts/src/v0.8/ChainlinkClient.sol";  //impoert in order to use the chainlink API
+
+contract APIConsumer is ChainlinkClient {
+    using Chainlink for Chainlink.Request;  
+  
+    uint256 public rainfall;
+    
+    address public oracle;
+    bytes32 public jobId ;
+    uint256 public fee ;
+    
+    constructor() {
+        // this sets the stored address for the LINK token based on the 
+        // public network that the contract is deployed on
+        // (no need to change anything here)
+        setPublicChainlinkToken();
+        
+        //we need three things in order to work from API
+        oracle  = 0x3Aa5ebB10DC797CAC828524e59A333d0A371443c;    // hash from the docs
+        jobId = "d5270d1c311941d0b08bead21fea7747";
+        fee = 0.1*10**18;                                         // fee that you want
+    }
+    
+    function requestRainfall() external {
+    //Chainlink request needs three things (job id , a callback Address i.e our contract accdess, a callback function (fulfill) )
+        Chainlink.Request memory request = buildChainlinkRequest( jobId , address(this) , this.fulfill.selector );
+        
+        // we need the get type from the chainlink (followed by the api Link)
+        request.add("get" , "http://rainfall-oracle.com/");
+        
+        //ADDING THE PATH IN THE JSON FILE
+        request.add("path", "rainfalls.iowa.september.2021.average");
+        
+        //finally sending the request to chainlink
+        sendChainlinkRequestTo(oracle, request, fee);
+    }
+    
+    function fulfill(bytes32 _requestId, uint256 _x) public recordChainlinkFulfillment(_requestId) {
+        rainfall = _x;   // setting the value of the state variable that we are getting from the api Link
+    }
+}
+
+  ```
  
