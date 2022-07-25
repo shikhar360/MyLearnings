@@ -5,10 +5,11 @@ contract Healthcare {
 
     address public admin;
     uint internal patient_ID = 0;
-    
+   
 
     struct Patient {
         uint id;
+        address addr;
         string name;
         uint age;
         string sex;
@@ -23,32 +24,45 @@ contract Healthcare {
    
     mapping(address => Patient) internal patientToAdd;
     mapping(address => uint) internal patientMap;
+    mapping(address => bool) internal hasReg;
 
-    Patient[] public patientArray;
+    Patient[] internal patientArray;
 
     constructor () {
         admin = msg.sender;
     }
 
 
-    function addPatient(  string memory _name, uint _age,string memory _sex  )  public  {
-
+    function addPatient(  string memory _name, uint _age,string memory _sex  )  external  {
+        require(hasReg[msg.sender] == false , "Already Registered");
+        patientToAdd[msg.sender].addr = msg.sender;
         patientToAdd[msg.sender].name = _name;
         patientToAdd[msg.sender].age = _age;
         patientToAdd[msg.sender].sex = _sex;
         patientArray.push(patientToAdd[msg.sender]);
         patientMap[msg.sender] = patient_ID;
-
+        hasReg[msg.sender] = true;
         patient_ID++;
     }
     
-  
+   function updatePatient(string memory _name, uint _age,string memory _sex) external {
+    patientArray[patientMap[msg.sender]].name = _name;
+    patientArray[patientMap[msg.sender]].age = _age;
+    patientArray[patientMap[msg.sender]].sex = _sex;
 
-    function  addToDocsArr(string memory _docName , string memory _docHash) public {
+   }
+
+    function  addToDocsArr(string memory _docName , string memory _docHash) external {
+        require(msg.sender == patientArray[patientMap[msg.sender]].addr , "Register First Or Cant Add other's File" );
         patientArray[patientMap[msg.sender]].docs.push(PatientDocument(_docName , _docHash));
       
     }   
-        
+
+    function deleteDocs(uint _index) external {
+        require(msg.sender == patientArray[patientMap[msg.sender]].addr , "You can,t DELETE other's file" );
+        patientArray[patientMap[msg.sender]].docs[_index] = patientArray[patientMap[msg.sender]].docs[patientArray[patientMap[msg.sender]].docs.length -1];
+        patientArray[patientMap[msg.sender]].docs.pop();
+    }    
    
     function getPatientsInfo() public view returns(Patient[] memory) {
         return patientArray;
@@ -56,6 +70,10 @@ contract Healthcare {
 
     function getDocsInfo() public view returns(PatientDocument[] memory) {
         return patientArray[patientMap[msg.sender]].docs;
+    }
+
+    function getId() public view returns(uint) {
+        return patientArray[patientMap[msg.sender]].id;
     }
 
 
