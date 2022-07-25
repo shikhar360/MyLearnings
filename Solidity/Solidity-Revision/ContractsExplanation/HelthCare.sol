@@ -69,10 +69,12 @@ contract Healthcare {
     }
 
     function getDocsInfo() public view returns(PatientDocument[] memory) {
+     require(msg.sender == patientArray[patientMap[msg.sender]].addr , "Register First" );  
         return patientArray[patientMap[msg.sender]].docs;
     }
 
     function getId() public view returns(uint) {
+     require(msg.sender == patientArray[patientMap[msg.sender]].addr , "Register First" );  
         return patientArray[patientMap[msg.sender]].id;
     }
 
