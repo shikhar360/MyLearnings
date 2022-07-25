@@ -1,29 +1,28 @@
 // SPDX-License-Identifier: Unlicense
 pragma solidity ^0.8.0;
 
-contract Healthcare1 {
+contract Healthcare {
 
     address public admin;
     uint internal patient_ID = 0;
+    
 
     struct Patient {
         uint id;
         string name;
         uint age;
         string sex;
-    PatientDocumentation[]  docs;
-        
-       
+        PatientDocument[] docs;
     }
     
-    struct PatientDocumentation{
+    struct  PatientDocument{
         string docName;
         string hash ;
     }
     
-    mapping(address => string[]) internal patientDocs;
-
-    mapping(address => uint) public patientMap;
+   
+    mapping(address => Patient) internal patientToAdd;
+    mapping(address => uint) internal patientMap;
 
     Patient[] public patientArray;
 
@@ -31,11 +30,14 @@ contract Healthcare1 {
         admin = msg.sender;
     }
 
-    function addPatient(  string memory _name, uint _age,string memory _sex )  public  {
 
-        patientArray.push( Patient( patient_ID, _name, _age, _sex , PatientDocumentation[] ));
-       
-       patientMap[msg.sender] = patient_ID;
+    function addPatient(  string memory _name, uint _age,string memory _sex  )  public  {
+
+        patientToAdd[msg.sender].name = _name;
+        patientToAdd[msg.sender].age = _age;
+        patientToAdd[msg.sender].sex = _sex;
+        patientArray.push(patientToAdd[msg.sender]);
+        patientMap[msg.sender] = patient_ID;
 
         patient_ID++;
     }
@@ -43,7 +45,7 @@ contract Healthcare1 {
   
 
     function  addToDocsArr(string memory _docName , string memory _docHash) public {
-        patientArray[patientMap[msg.sender]].docs.push(PatientDocumentation(_docName , _docHash));
+        patientArray[patientMap[msg.sender]].docs.push(PatientDocument(_docName , _docHash));
       
     }   
         
@@ -52,8 +54,8 @@ contract Healthcare1 {
         return patientArray;
     }
 
-    function getPatientsDocsInfo() public view returns(string[] memory) {
-        return patientDocs[msg.sender];
+    function getDocsInfo() public view returns(PatientDocument[] memory) {
+        return patientArray[patientMap[msg.sender]].docs;
     }
 
 
