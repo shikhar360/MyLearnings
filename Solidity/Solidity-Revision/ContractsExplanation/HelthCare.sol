@@ -3,7 +3,7 @@ pragma solidity ^0.8.0;
 
 contract Healthcare {
 
-    address public admin;
+    address internal doctor;
     uint internal patient_ID = 0;
    
 
@@ -29,7 +29,7 @@ contract Healthcare {
     Patient[] internal patientArray;
 
     constructor () {
-        admin = msg.sender;
+        doctor = msg.sender;
     }
 
 
@@ -44,6 +44,12 @@ contract Healthcare {
         hasReg[msg.sender] = true;
         patient_ID++;
     }
+    
+    function deletePatient(uint _index) external{  //we have to pass the id of the patient in this 
+        require(msg.sender == doctor , "Only Doctors can delete Patients");
+        delete patientArray[_index];
+    }
+
     
    function updatePatient(string memory _name, uint _age,string memory _sex) external {
     patientArray[patientMap[msg.sender]].name = _name;
