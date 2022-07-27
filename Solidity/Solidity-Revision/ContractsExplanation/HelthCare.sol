@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: Unlicense
 pragma solidity ^0.8.0;
 
-contract Healthcare {
+contract Health {
     address public doctor;
     uint internal patientID = 0;
 
