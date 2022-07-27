@@ -1,8 +1,7 @@
 // SPDX-License-Identifier: Unlicense
-
 pragma solidity ^0.8.0;
 
-contract Health {
+contract Healthcare {
     address public doctor;
     uint internal patientID = 0;
 
@@ -12,6 +11,7 @@ contract Health {
         string name;
         uint age;
         string sex;
+        string location;
         PatientDocument[] docs;
     }
 
@@ -33,13 +33,15 @@ contract Health {
     function addPatient(
         string memory _name,
         uint _age,
-        string memory _sex
+        string memory _sex,
+        string memory _location
     ) external {
         require(hasReg[msg.sender] == false, "Already Registered");
         patientToAdd[msg.sender].addr = msg.sender;
         patientToAdd[msg.sender].name = _name;
         patientToAdd[msg.sender].age = _age;
         patientToAdd[msg.sender].sex = _sex;
+        patientToAdd[msg.sender].location = _location;
 
         patientArray.push(patientToAdd[msg.sender]);
 
@@ -58,17 +60,22 @@ contract Health {
     function updatePatient(
         string memory _name,
         uint _age,
-        string memory _sex
+        string memory _sex,
+        string memory _location
     ) external {
         patientArray[patientMap[msg.sender]].name = _name;
         patientArray[patientMap[msg.sender]].age = _age;
         patientArray[patientMap[msg.sender]].sex = _sex;
+        patientArray[patientMap[msg.sender]].location = _location;
     }
 
     function addToDocsArr(string memory _docName, string memory _docHash)
         external
     {
-        require(hasReg[msg.sender] == true, "Register First ");
+        require(
+            hasReg[msg.sender] == true,
+            "Register First "
+        );
 
         patientArray[patientMap[msg.sender]].docs.push(
             PatientDocument(_docName, _docHash)
@@ -86,16 +93,16 @@ contract Health {
         patientArray[patientMap[msg.sender]].docs.pop();
     }
 
-    function getPatientsInfo() external view returns (Patient[] memory) {
+    function getPatientsInfo() public view returns (Patient[] memory) {
         return patientArray;
     }
 
-    function getDocsInfo() external view returns (PatientDocument[] memory) {
+    function getDocsInfo() public view returns (PatientDocument[] memory) {
         require(hasReg[msg.sender] == true, "Register First");
         return patientArray[patientMap[msg.sender]].docs;
     }
 
-    function getId() external view returns (uint) {
+    function getId() public view returns (uint) {
         require(hasReg[msg.sender] == true, "Register First");
         return patientArray[patientMap[msg.sender]].id;
     }
