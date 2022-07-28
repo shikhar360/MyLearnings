@@ -20,6 +20,7 @@ contract Health {
         string hash;
     }
 
+
     mapping(address => Patient) internal patientToAdd;
     mapping(address => uint) internal patientMap;
     mapping(address => bool) internal hasReg;
