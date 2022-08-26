@@ -47,7 +47,7 @@ const newNum = 9 ; // here newNum is a type of number that is 9
 
 ```typescript
 const owner: {
-  name: string; // Key_type pair instead of key value pair
+  name: string; // Key_type pair instead of key_value pair
   age: number; // We can do this but its recommended not to do this
 } = {
   name: "Shikhar",
@@ -73,6 +73,12 @@ const owner = {
 
 let activities: string[];
 activities = ["abc", "def", "ghi"]; //we can include no number/object/bool in this
+
+// we can also have arrays of object
+/*
+
+
+*/
 ```
 
 #### Tuples
@@ -184,3 +190,43 @@ function combine(val: NumStr , val2: NumStr) {
 }
 
 ```
+
+#### Return Function Types
+
+There are two categories of types that can bve returned by the function . The core typeslike
+Number , String , Boolean and other is `:void or :never ` type .
+
+Ts automatically infers the suggested type after writing the function but we can also
+explictly ask the function that what it shoud return
+
+A function with `:never` will never return anything .
+
+#### Function as a Type
+
+We can also assign variable a function type
+
+```typescript
+function add(a: number, b: number): number {
+  return a + b;
+}
+
+// There will be cases when we want a variable to be assign a function
+
+//let combine ; //here combine is :any which is useless
+// we want combine to work as add function , we can do that like this
+
+let combine: (x: number, y: number) => number;
+// Combine should be any function which takes 2 parameter (that should be number) and
+// should return a number
+
+combine = add;
+
+console.log(combine(7, 8));
+
+// we can also use the same pattern {  callbackFunction: (x: number) => void   } to pass
+// a function as a callbackFunction (Function that are passed as a arguments)
+```
+
+There is also a `: unknown` type . It is bit more restrictive than tha :any type.
+We have to do the typechecking in a `if(typeof val === "string"){ //dosomething} ` to proceede
+with this
