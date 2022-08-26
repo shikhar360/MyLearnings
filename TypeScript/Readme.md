@@ -24,7 +24,7 @@ any error in the TS
 
 #### Basics
 
-```
+```typescript
 function (num: number , str: string , bool: boolean){  //this is how we define number sttring and Boolean
   console.log(num , str , bool);
 }
@@ -45,58 +45,142 @@ const newNum = 9 ; // here newNum is a type of number that is 9
 
 #### Objects
 
-```
-
-const owner : {
-  name : string;         // Key_type pair instead of key value pair
-  age : number;           // We can do this but its recommended not to do this
-
+```typescript
+const owner: {
+  name: string; // Key_type pair instead of key value pair
+  age: number; // We can do this but its recommended not to do this
 } = {
-  name : "Shikhar",
-  age : 23
-}
-
+  name: "Shikhar",
+  age: 23,
+};
 
 // Let TS do the inference on its own ONLY do inference when the TS is not infering as you want it to be
 
 const owner = {
-  name : "Shikhar",
-  age : 23
-}
-
-
+  name: "Shikhar",
+  age: 23,
+};
 ```
 
 #### Arrays
 
-```
+```typescript
 const owner = {
-  name : "Shikhar",
-  age : 23 ,
-  hobbies : [ "playing" , "biking" , "kiting" ]   //Ts inference will automatically knows its a string[]
-}
+  name: "Shikhar",
+  age: 23,
+  hobbies: ["playing", "biking", "kiting"], //Ts inference will automatically knows its a string[]
+};
 
-let activities : string[];
-activities = ["abc" , "def" , "ghi"]             //we can include no number/object/bool in this
-
+let activities: string[];
+activities = ["abc", "def", "ghi"]; //we can include no number/object/bool in this
 ```
 
 #### Tuples
 
 Arrays with a fixed length and having exact types can be called as tuples
 
-```
-const owner : {
-  name : string ;
-  age : number ;
-  roles : [ number , string]      // called tuples (array with fixed length and type orderwise)
+```typescript
+const owner: {
+  name: string;
+  age: number;
+  roles: [number, string]; // called tuples (array with fixed length and type orderwise)
 } = {
-  name : "Shikhar",
-  age : 23,
-  roles :[ 69 , "vns"]
-}
+  name: "Shikhar",
+  age: 23,
+  roles: [69, "vns"],
+};
 
 // Only exception in this is that owner.roles.push("newplace") will work (.push method will work)
+```
 
+#### Enums
+
+To create human readable identifiers we use enums
+The convention of using enum values all-uppercase but it is not a "mustdo"
+
+```typescript
+
+enums Role {  //naming start with capital letter
+  ADMIN ,
+  ATTENDEE,     //here value of ADMIN is 0 , ATTENDEE is 1 and soo on
+  AUTHOR
+}
+
+// enums Role {  //we can also give enums our own value that we like
+//   ADMIN = 2,
+//   ATTENDEE,    //Here ADMIN = 2 therefore ATTENDEE = 3 , AUTHOR = 4
+//   AUTHOR
+// }
+
+// enums Role {  //or we can give all enums its own value
+//   ADMIN  = 0,
+//   ATTENDEE = "abcd",
+//   AUTHOR = true
+// }
+
+const owner = {
+  name: "Shikhar",
+  age: 23,
+  role : Role.ADMIN
+};
+
+console.log(owner.role) // this will be 0
+
+```
+
+#### ANY
+
+Try to avoid using this . Any takes away all the TS features that it provides.
+
+#### Union Types
+
+Suppose when we want to work with more than 1 type in the function or anywhere else we will use
+union type
+
+```typescript
+function combine(val: string | number, val2: string | number) {
+  // suppose here we want to work with strings and numbers too
+  let result;
+  if (typeof val === "number" && typeof val2 === "number") {
+    return (result = val + val2);
+  } else {
+    return (result = val.toString() + val2.toString());
+  }
+
+  return result;
+}
+```
+
+#### Type Alias
+
+To create a custom type of our own we use the type alias
+
+```typescript
+
+type NumStr = string | number ; // here we have create a own custom type alias
+
+type OwProp = {            // a custom type
+  name: string;
+  age: number;
+  roles: [number, string];
+}
+
+const owner : OwProp = {
+  name : "abcd"
+  age : 23,
+  role : [123 , "xyz"]
+}
+
+function combine(val: NumStr , val2: NumStr) {
+
+  let result;
+  if (typeof val === "number" && typeof val2 === "number") {
+    return (result = val + val2);
+  } else {
+    return (result = val.toString() + val2.toString());
+  }
+
+  return result;
+}
 
 ```
