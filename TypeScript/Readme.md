@@ -247,6 +247,12 @@ interface Greetable {
   greet(n: string): void;
 }
 
+// interface Greetable {
+         //we can also have a readonly feature if we want a property not to change in future
+//   readonly name: string;
+//   greet(n: string): void;
+// }
+
 class Person implements Greetable {
   // this class should have the the properties of name and greet and it can also have other props of its own
   name : string ,
@@ -260,6 +266,28 @@ class Person implements Greetable {
 }
 
 
+// INTERFACES CAN ALSO BE EXTENDS
+
+interface Named {
+ readonly name: string;
+
+}
+
+interface Greetable2 extends Named {
+  greet(n: string): void;
+}
+
+// Interface can also be used as a funcction
+
+interface Add {
+  (a: number , b: number) : number
+}
+
+// in types we usually do like a arrow
+
+type addFunc = (a: number , b: number) => number;
+
+
 ```
 
 When we want object to share exact features of it in other classes then we use interfaces .
@@ -267,3 +295,83 @@ When we want object to share exact features of it in other classes then we use i
 When you have a preference of choosing the structure of
 <b> Union , Primitives , Shorthand Functions , Advanced Type Functions </b> use `Type` instead of
 `interface`
+
+## Advance TS Features
+
+#### Intersection types
+
+```typescript
+// When we have two object types that are intersecting its features like this
+
+type Person = {
+  address: string;
+  name: string;
+};
+
+type Employee = {
+  name: string;
+  job: string[];
+};
+
+type ElevatedEmployee = Person & Employee;
+// then ElevatedEmployee will have combined feature (properties) of person and employee because {};
+
+//BUT
+
+type Combined = string | number;
+type OtherCombine = number | boolean;
+
+type Universal = Combined & OtherCombined; // this will have intersecting feature of number
+// Because the number is the type that is common in Combined and OtherCombined
+```
+
+#### Type Gaurd
+
+TypeGaurd is just use to check where we are getting our desired type or not
+
+```typescript
+//1
+
+if (typeof val === "string") {
+  // could be string or number or boolean
+}
+
+//2
+
+if ("ObjectPropName" in aObject) {
+  // do something if the objectPropName property is present in the "aObject"
+}
+
+//3
+
+if (parameterIs instanceof aClassObj) {
+  //proceede with the code
+}
+
+// We can TypeCast a element using a `as` syntax
+
+ex: (document.querySelector("p") as HTMLInputElement).value = "Hello Bhai";
+```
+
+#### Generic Types
+
+When the value is unknown and you are expecting a particular type to take out of the info recieved
+then you can use generic types
+
+Mainly used on Arrays and Promise
+
+```typescript
+const result: Array<string> = [];
+const result2: Array<string | number> = [];
+
+const somePromise: Promise<string> = new Promise((resolve, reject) => {
+  setTimeout(() => {
+    resolve("I am a String");
+    // if the resolve here will be number or boolean then we will get err while using .then method
+  }, 2000);
+});
+
+somePromise.then((data) => {
+  data.split(" "); // this will give err if resolve is not the desired type
+});
+```
