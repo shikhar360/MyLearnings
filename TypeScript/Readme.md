@@ -230,3 +230,40 @@ console.log(combine(7, 8));
 There is also a `: unknown` type . It is bit more restrictive than tha :any type.
 We have to do the typechecking in a `if(typeof val === "string"){ //dosomething} ` to proceede
 with this
+
+#### Interface
+
+Interface are like types the key difference between both of them is the familiarity (extends) and
+declaration merging with OOP of interface is more .
+
+Interfaces can only define objects i.e we CANT use union types in interfces.
+
+In Interfaces we can extend the properties by implementing it in a another class
+
+```typescript
+
+interface Greetable {
+  name: string;
+  greet(n: string): void;
+}
+
+class Person implements Greetable {
+  // this class should have the the properties of name and greet and it can also have other props of its own
+  name : string ,
+  age  = 30;     //other speccial props of Person class
+
+  greet (phrase : string){
+    console.log("Hi my name is" + this.name)
+  }
+
+  //name and greet are compulsary because they are inherited
+}
+
+
+```
+
+When we want object to share exact features of it in other classes then we use interfaces .
+
+When you have a preference of choosing the structure of
+<b> Union , Primitives , Shorthand Functions , Advanced Type Functions </b> use `Type` instead of
+`interface`
