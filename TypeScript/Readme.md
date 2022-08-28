@@ -325,9 +325,9 @@ type Universal = Combined & OtherCombined; // this will have intersecting featur
 // Because the number is the type that is common in Combined and OtherCombined
 ```
 
-#### Type Gaurd
+#### Type Guard
 
-TypeGaurd is just use to check where we are getting our desired type or not
+TypeGuard is just use to check where we are getting our desired type or not
 
 ```typescript
 //1
