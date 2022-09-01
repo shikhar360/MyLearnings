@@ -1,6 +1,10 @@
 import "./style.css";
 import * as THREE from "three";
 
+import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
+
+console.log(OrbitControls);
+
 const cursor = {
   x: 0,
   y: 0,
@@ -89,12 +93,25 @@ use the aspect ratio
 //   100
 // );
 
-const camera = new THREE.PerspectiveCamera(75, sizes.width / sizes.height);
+//--------------------------------------------------------------------------------------
+
+const camera = new THREE.PerspectiveCamera(
+  75,
+  sizes.width / sizes.height,
+  0.1,
+  100
+);
 // camera.position.x = 2;
 // camera.position.y = 2;
 camera.position.z = 4;
 camera.lookAt(mesh.position);
 scene.add(camera);
+
+// Controls
+// These has to be set just after the camera and updated just before the render in tick fn
+
+const controls = new OrbitControls(camera, canvas);
+controls.enableDamping = true;
 
 // Renderer
 const renderer = new THREE.WebGLRenderer({
@@ -119,13 +136,17 @@ const tick = () => {
   // the valuee is also going down but in threejs when the mouse is moving down it is consider
   // to be positive thats why we have to invert something somewhere ( recommended to do in eventlistner)
 
-  //To view the object rotating only on x-axis
+  //- To view the object rotating only on x-axis
 
-  camera.position.x = Math.sin(cursor.x * Math.PI * 2) * 3;
-  camera.position.z = Math.cos(cursor.x * Math.PI * 2) * 3;
-  camera.position.y = cursor.y * 10;
+  // camera.position.x = Math.sin(cursor.x * Math.PI * 2) * 3;
+  // camera.position.z = Math.cos(cursor.x * Math.PI * 2) * 3;
+  // camera.position.y = cursor.y * 10;
 
-  camera.lookAt(mesh.position);
+  // camera.lookAt(mesh.position);
+
+  // Updating the controls
+
+  controls.update();
 
   // Render
   renderer.render(scene, camera);
@@ -160,7 +181,14 @@ to the camera
 - Prespective camera
 It is the camera with the prespective
 
+------------------------------------------------------------------------------------
 
+- Built-in Controls
+"https://threejs.org/docs/#examples/en/controls/OrbitControls"
 
+There are many typpesof built in control youcan see all in docs by clicking the examples
+
+ Here weare going to use OrbitControls
+ This can not be accessed by THREE.OrbitControls we have to pull it out see the import up👆
 
 */
