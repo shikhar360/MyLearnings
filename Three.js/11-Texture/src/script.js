@@ -93,7 +93,7 @@ const roughnessTexture = textureLoader.load("./textures/door/roughness.jpg");
 
 //--We can minification the picture using the minFilter value of THREE.NearestFilter (Good for performance issues)
 // Default is THREE.LinearMipMapLinearFilter
-// colorTexture.minFilter = THREE.NearestFilter;
+colorTexture.minFilter = THREE.NearestFilter;
 
 //-- We can also change the Magnification of the image by using magFilter (default= THREE.LinearFilter)
 // colorTexture.magFilter = THREE.NearestFilter;
