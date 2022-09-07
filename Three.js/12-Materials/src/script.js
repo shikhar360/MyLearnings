@@ -91,8 +91,8 @@ material.alphaMap = aplhaTexture;
 
 //-- Mesh Toon Material creates a cartoonish effect
 
-// const material = new THREE.MeshToonMaterial();
-// material.gradientMap = gradientTextures;
+const material = new THREE.MeshToonMaterial();
+material.gradientMap = gradientTextures;
 
 // -- Mesh Standardmaterial
 
