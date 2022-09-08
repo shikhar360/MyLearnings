@@ -1,10 +1,19 @@
 import "./style.css";
 import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
+import * as dat from "dat.gui";
+
+/*
+Debug
+*/
+const gui = new dat.GUI();
 
 //TEXTURES (these are to be written in the begining)
 
 const textureLoader = new THREE.TextureLoader();
+
+//-- Environment loader
+const cubeTexureLoader = new THREE.CubeTextureLoader();
 
 const aplhaTexture = textureLoader.load("/textures/door/alpha.jpg");
 const ambientOcclusionTexture = textureLoader.load(
@@ -20,6 +29,18 @@ const gradientTextures = textureLoader.load("/textures/gradients/5.jpg");
 gradientTextures.minFilter = THREE.NearestFilter; //for toonish objects
 gradientTextures.magFilter = THREE.NearestFilter;
 gradientTextures.generateMipmaps = false;
+
+// Theese enviornment loader needs all 6 direction images
+
+const enviornmentTexture = cubeTexureLoader.load([
+  "/textures/environmentMaps/0/px.jpg",
+  "/textures/environmentMaps/0/nx.jpg",
+  "/textures/environmentMaps/0/py.jpg",
+  "/textures/environmentMaps/0/ny.jpg",
+  "/textures/environmentMaps/0/pz.jpg",
+  "/textures/environmentMaps/0/nz.jpg",
+]);
+
 /**
  * Base
  */
@@ -91,25 +112,80 @@ material.alphaMap = aplhaTexture;
 
 //-- Mesh Toon Material creates a cartoonish effect
 
-const material = new THREE.MeshToonMaterial();
-material.gradientMap = gradientTextures;
+// const material = new THREE.MeshToonMaterial();
+// material.gradientMap = gradientTextures;
 
-// -- Mesh Standardmaterial
+// -- Mesh Standardmaterial like MeshLambartMaterial and MeshPhongMaterial it supports light but with more
+// -- realistic renders and better parameter like roughness and metalness
 
-//4630
+// const material = new THREE.MeshStandardMaterial();
+// material.roughness = 1; //default val = 1 (recommended to initialize with this)
+// material.metalness = 0; //default val = 0 (recommended to initialize with this)
+// material.map = colorTexture;
+// material.aoMap = ambientOcclusionTexture;
+// material.aoMapIntensity = 1;
+// material.displacementMap = heightTexture;
+// material.displacementScale = 0.05;
+
+// material.roughnessMap = roughnessTexture;
+// material.metalnessMap = metalnessTexture;
+
+// material.normalMap = normalTexture; // for tiny detailings
+// //set the intensity of the normal map
+// material.normalScale.set(0.5, 0.5);
+
+// //Controling Aplha
+// material.transparent = true;
+// material.alphaMap = aplhaTexture;
+
+// --Enviornment Loader (Three.js only supports cube enviornment map )
+
+const material = new THREE.MeshStandardMaterial();
+material.metalness = 0.7;
+material.roughness = 0.2;
+material.envMap = enviornmentTexture;
+
+//HDRIHaven.com for searching the images  then we can use
+// "https://matheowis.github.io/HDRI-to-CubeMap/"  //for changing the HDRI into all 6 direction photo
+
+//* ALWAYS USE THIS AFTER CREATING MATERIAL
+
+gui.add(material, "roughness").min(0).max(1).step(0.001);
+gui.add(material, "metalness").min(0).max(1).step(0.0001);
+gui.add(material, "aoMapIntensity").min(0).max(10).step(0.0001);
+gui.add(material, "displacementScale").min(0).max(1).step(0.0001);
 
 const sphere = new THREE.Mesh(
-  new THREE.SphereBufferGeometry(0.5, 16, 16),
+  new THREE.SphereBufferGeometry(0.5, 64, 64),
   material
 );
+
+sphere.geometry.setAttribute(
+  "uv2",
+  new THREE.BufferAttribute(sphere.geometry.attributes.uv.array, 2)
+);
+
 sphere.position.x = -1.25;
 
-const plane = new THREE.Mesh(new THREE.PlaneBufferGeometry(1, 1), material);
+const plane = new THREE.Mesh(
+  new THREE.PlaneBufferGeometry(1, 1, 100, 100),
+  material
+);
 plane.position.x = 1.25;
 
+plane.geometry.setAttribute(
+  "uv2",
+  new THREE.BufferAttribute(plane.geometry.attributes.uv.array, 2)
+);
+
 const torus = new THREE.Mesh(
-  new THREE.TorusBufferGeometry(0.5, 0.2, 16, 32),
+  new THREE.TorusBufferGeometry(0.5, 0.2, 64, 128),
   material
+);
+
+torus.geometry.setAttribute(
+  "uv2",
+  new THREE.BufferAttribute(torus.geometry.attributes.uv.array, 2)
 );
 
 scene.add(sphere, plane, torus);
@@ -188,13 +264,13 @@ const tick = () => {
   const elapsedTime = clock.getElapsedTime();
 
   //Update the objects
-  sphere.rotation.y = 0.5 * elapsedTime;
-  plane.rotation.y = 0.5 * elapsedTime;
-  torus.rotation.y = 0.5 * elapsedTime;
+  sphere.rotation.y = 0.2 * elapsedTime;
+  plane.rotation.y = 0.2 * elapsedTime;
+  torus.rotation.y = 0.2 * elapsedTime;
 
-  sphere.rotation.x = 0.3 * elapsedTime;
-  plane.rotation.x = 0.3 * elapsedTime;
-  torus.rotation.x = 0.3 * elapsedTime;
+  sphere.rotation.x = 0.1 * elapsedTime;
+  plane.rotation.x = 0.1 * elapsedTime;
+  torus.rotation.x = 0.1 * elapsedTime;
   // Update controls
   controls.update();
 
