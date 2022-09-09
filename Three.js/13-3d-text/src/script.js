@@ -26,9 +26,10 @@ const scene = new THREE.Scene();
  * Textures
  */
 const textureLoader = new THREE.TextureLoader();
-const matcaptexture = textureLoader.load("/textures/matcaps/7.png");
-const matcaptexture2 = textureLoader.load("/textures/matcaps/4.png");
+const matcaptexture = textureLoader.load("/textures/matcaps/13.png");
+const matcaptexture2 = textureLoader.load("/textures/matcaps/12.png");
 
+// 'https://github.com/nidorx/matcaps'
 /**
  * 3D text
  We need to load the font first using the fontloader
@@ -47,7 +48,7 @@ fontLoader.load(
 
     const textGeometry = new TextGeometry("Shikhar", {
       font: font,
-      size: 0.6,
+      size: 0.5,
       height: 0.2,
       curveSegment: 6,
       bevelEnable: true,
@@ -82,13 +83,13 @@ fontLoader.load(
 
     // adding donut in the scene
 
-    const knotGeometry = new THREE.TorusKnotGeometry(0.4, 0.08, 64, 8);
+    const knotGeometry = new THREE.DodecahedronGeometry(0.7, 0);
     const knotMaterial = new THREE.MeshMatcapMaterial({
       // we already have this above (can delete this)
       matcap: matcaptexture2,
     });
 
-    for (let i = 0; i < 300; i++) {
+    for (let i = 0; i < 200; i++) {
       const knot = new THREE.Mesh(knotGeometry, knotMaterial);
 
       knot.position.x = (Math.random() - 0.5) * 10;
