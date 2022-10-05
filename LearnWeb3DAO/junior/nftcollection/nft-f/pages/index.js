@@ -103,7 +103,7 @@ export default function Home() {
       );
     }
 
-    n;
+    
     if (loading) {
       return <button className={styles.button}>Loading...</button>;
     }
