@@ -20,3 +20,11 @@ You can go deep to get more Global functions tht are avaiable t the global varia
 _ underscore is also a great thing in node it represents the PREVIOUS RESULT 
 >i.e 2*3=6 , _-2=4.
 
+#### How to make modules
+
+Make a `modules` folder , In that folder make a js file and write `module.exports= ()=>{}` write the function that you want your module to be doing
+
+In the file where you want to use the modules write
+`const anyName = require(./module/any.js)`
+Then anyName will work as a function.
+

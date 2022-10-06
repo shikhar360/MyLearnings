@@ -29,18 +29,30 @@ const fs = require("fs"); // fs stands for the file system , more on node.js doc
 const http = require("http");
 const url = require("url");
 
+const data = fs.readFileSync(`${__dirname}/dev-data/data.json`, "utf-8")
+const dataObj = JSON.parse(data)
+
 
 const server = http.createServer((req , res)=>{
   // request and response is what is spills out
   // res.end("Hello from the server bro");
 
   //- Routing
-  const pathName = req.url;
+  const {pathname , query} = url.parse(req.url , true);
+  // const pathname = req.url;
 
-  if (pathName === "/" || pathName === "/overview"){
+  if (pathname === "/" || pathname === "/overview"){
+
     res.end("aur kya hal chal");
-  } else if(pathName === "/product"){
+  } else if(pathname === "/product"){
     res.end("Lelo samaan lelo");
+
+
+
+  } else if(pathname === "/api"){
+    //creating a simple api
+    res.writeHead(200 , {"Content-type" : "application/json"})
+    res.end(data);
   }else{
     res.end("LOL nothing here");
   }
@@ -53,5 +65,3 @@ server.listen(/*port*/ 8000 , /*localhost*/ "127.0.0.1" , /*callback*/()=>{
 //-- node index.js (terminal) also open 127.0.0.1:8000 
 
 
-//-------------------------------------------------------------------------------------
-//  
