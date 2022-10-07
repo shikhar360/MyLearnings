@@ -1,0 +1,14 @@
+{
+  "name": "natours",
+  "version": "1.0.0",
+  "description": "learning express mongodb mongoose etc",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Shikhar",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.1"
+  }
+}
