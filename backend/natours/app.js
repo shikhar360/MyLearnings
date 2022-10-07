@@ -26,6 +26,29 @@ app.get('/api/v1/tours', (req, res) => {
   });
 });
 
+//:id will return a object with a key of id , we can write anything in that but and object key will be 'anything'
+//we will able to see the object by using req.params
+// we can also use /:other? to get other params , "?"  will check if the data is present or not and will return undefine if not present
+
+app.get('/api/v1/tours/:id', (req, res) => {
+
+  const id = req.params.id
+
+  const tour = tours.find(el=> el.id === id )
+
+  if(!tour){
+    res.status(404).json({message :"Not found ser" , status: "fail"})
+  }
+  // console.log(req.params);
+  res.status(200).json({
+    status: 'success',
+  
+    data: {
+      tour,
+    },
+  });
+});
+
 // This method is used to Create.
 app.post('/api/v1/tours', (req, res) => {
   // The req contain all the data that is requested or send by the client.
