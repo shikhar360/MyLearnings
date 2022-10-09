@@ -4,24 +4,24 @@ const fs = require("fs"); // fs stands for the file system , more on node.js doc
 //-------------------------------------------------------------------------------------
 //syncronous blockingsystem
 
-// const textIn = fs.readFileSync("./txt/input.txt", "utf-8");
-// console.log(textIn);
-// //-- node index.js (terminal)
-// const textOut = `We can write to the file as well : ${textIn}`;
-// fs.writeFileSync("./txt/output.txt", textOut); //as this point the output.txt does not exist
-// //-- node index.js (terminal)
-// // after running this we can see the file output.txt
+const textIn = fs.readFileSync("./txt/input.txt", "utf-8");
+console.log(textIn);
+//-- node index.js (terminal)
+const textOut = `We can write to the file as well : ${textIn}`;
+fs.writeFileSync("./txt/output.txt", textOut); //as this point the output.txt does not exist
+//-- node index.js (terminal)
+// after running this we can see the file output.txt
 
 //-------------------------------------------------------------------------------------
 //asyncronous non-blocking system
-// fs.readFile("./txt/start.txt", "utf-8", (err, data) => {
-//   //1st arguments will be error
-//   console.log("file readed");
-//   fs.writeFile("./txt/something.txt", `${data}` , "utf-8", (err) => {   //same format
-//     //the data is must be in literals 
-//     console.log("file written");
-//   });
-// });
+fs.readFile("./txt/start.txt", "utf-8", (err, data) => {
+  //1st arguments will be error
+  console.log("file readed");
+  fs.writeFile("./txt/something.txt", `${data}` , "utf-8", (err) => {   //same format
+    //the data is must be in literals 
+    console.log("file written");
+  });
+});
 
 //-------------------------------------------------------------------------------------
 //Creating the server

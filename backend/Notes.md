@@ -28,3 +28,17 @@ In the file where you want to use the modules write
 `const anyName = require(./module/any.js)`
 Then anyName will work as a function.
 
+### REST Api (Representational State Trasfer)
+It is a way of making apis in a logical way in order to make it easy to consume by the clients.
+
+Way of making a REST API or API that followsthe rest structure:
+
+- Sepearate the Api into logocal resources : Resources means Object or representation of something , which has data associated to it. Any information that can be named 
+
+- Expose the stuructured , resource based URL  : `https://acd.com/addsomething`  (//addsomething is the endpoint)
+
+- Use HTTP methods :  These http methods perform  the CRUD methods (Create : POST ; Read : GET , Update : PUT , PATCH  ; Delete : DELETE)
+
+- Send Data as JSON : JSON is just object that has keys and values , where keys always should be strings and values could be anything ( we can format it with JSEND) 
+  
+- Be stateless : The state should be handled by the client , The server should not have to remember the previous request .
