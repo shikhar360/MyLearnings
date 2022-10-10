@@ -1,0 +1,25 @@
+type Query {
+  # Search for jobs which will be array of type job
+  jobs: [Job]
+
+  #Now we want only one Job with the provided arguments
+  job(id: ID!): Job
+
+  # We want the details about the cpmpany as well
+  company(id: ID!): Company
+}
+
+type Job {
+  # ID = Special type that is provided by graphql that can have non-human readable data, "!" == it cant be null
+  id: ID!
+  title: String
+  description: String
+  company: Company #Inside the company we have a Company type defined below
+}
+
+type Company {
+  id: ID!
+  name: String
+  description: String
+  jobs: [Job]
+}
