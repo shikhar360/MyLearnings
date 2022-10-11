@@ -9,6 +9,20 @@ type Query {
   company(id: ID!): Company
 }
 
+# - Mutation
+
+type Mutation {
+  # createJobs(companyId: ID, title: String, description: String): ID
+  createJobs(input: CreateJobsInput): Job
+}
+
+# Instead of passing many arguments we here pass a single objects that will have the desired args
+input CreateJobsInput {
+  companyId: ID
+  title: String
+  description: String
+}
+
 type Job {
   # ID = Special type that is provided by graphql that can have non-human readable data, "!" == it cant be null
   id: ID!
