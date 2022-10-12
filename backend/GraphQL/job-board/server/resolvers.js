@@ -24,8 +24,15 @@ const Mutation = {
   //   return db.jobs.create({ companyId, title, description });
   // },
 
-  createJobs: (root, { input }) => {
-    const id = db.jobs.create(input);
+  // We have to check if the user is authenticated or not , for that we have the 3rd params : "context"
+  // This can be used to access things that are not part of the GraphQL itself but provided by the application (see server.js now)
+  createJobs: (root, { input }, /*context*/ { user }) => {
+    if (/*!context.user*/ !user) {
+      throw new Error("Unauthorized BC");
+    }
+    // You haveto put the Bearer Token
+    // const id = db.jobs.create(input);
+    const id = db.jobs.create({ ...input, companyId: user.companyId });
     return db.jobs.get(id);
   },
 };

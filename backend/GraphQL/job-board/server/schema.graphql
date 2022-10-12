@@ -18,7 +18,7 @@ type Mutation {
 
 # Instead of passing many arguments we here pass a single objects that will have the desired args
 input CreateJobsInput {
-  companyId: ID
+  # companyId: ID  cause we are already sending it through context
   title: String
   description: String
 }

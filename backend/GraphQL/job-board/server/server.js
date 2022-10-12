@@ -39,10 +39,17 @@ const resolvers = require("./resolvers");
 //- Error: You must `await server.start()` before calling `server.applyMiddleware()`
 
 let apolloServer = null;
+
+//req.user will be indefine if we are not authenticated
+// const context = ({ req }) => ({ user: req.user });
+const context = ({ req }) => ({ user: req.user && db.users.get(req.user.sub) }); //req.user.sub is the id
+
 async function startServer() {
   apolloServer = new ApolloServer({
     typeDefs,
     resolvers,
+    // Here we can pass the context that we defined in our resolver
+    context,
   });
   await apolloServer.start();
   apolloServer.applyMiddleware({ app, path: "/graphql" });
@@ -52,6 +59,9 @@ startServer();
 //!NOTE
 //The differences are that GraphiQL is more limited and runs at /graphiql, while the Playground has more features (like multiple tabs and setting HTTP headers) and is visible at the same path used to post GraphQL requests,  i.e. /graphql in the examples.
 
+// Express Jwt search for the authentication , if a user is authenticated then it will spill out the
+//-- "req.user"
+// If the reqcontains a valid token "req.user " will contain the decoded info of the token
 //-----------------------------------------------------------------------------------------------
 
 app.post("/login", (req, res) => {
