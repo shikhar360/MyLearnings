@@ -1,0 +1,16 @@
+.input{
+  background: pink;
+  text-align: center;
+  padding: 5px;
+}
+
+.small{
+  width: 100px;
+}
+.medium{
+  width: 200px;
+}
+.large{
+  width: 300px;
+}
+  

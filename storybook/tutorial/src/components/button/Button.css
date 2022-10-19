@@ -1,0 +1,27 @@
+.button{
+  border: none;
+  color: white;
+  padding: 20px;
+  text-align: center;
+  display: inline-block;
+  font-size: 20px;
+  border-radius: 20px;
+  cursor: pointer;
+  
+}
+
+.primary{
+  background: lightskyblue;
+}
+.secondary{
+  background: yellow;
+}
+.success{
+  background: green;
+}
+.danger{
+  background: red;
+}
+.danger2{
+  background: palevioletred;
+}
