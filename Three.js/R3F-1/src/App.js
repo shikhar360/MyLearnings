@@ -1,10 +1,14 @@
 import React, { useRef } from "react";
-import { useFrame } from "@react-three/fiber";
+import { useFrame, useThree  , extend} from "@react-three/fiber";
+import {OrbitControls} from "three/examples/jsm/controls/OrbitControls.js"
 
+
+extend({OrbitControls})
 export default function App() {
 
   const cuberef = useRef()
  const groupref = useRef()
+ const {camera , gl } = useThree()
 
   useFrame((state , delta)=>{
 
@@ -14,6 +18,8 @@ export default function App() {
   })
   return (
     <>
+
+     <orbitControls args={[ camera , gl.domElement]}/>
       <group ref={groupref}>
 
         
@@ -21,9 +27,9 @@ export default function App() {
           <boxGeometry  args={[2,2,2]} />
           <meshBasicMaterial color={"red"} wireframe  />
         </mesh>
-        <mesh position={[-1 , 0, 0]}>
-          <sphereGeometry   />
-          <meshBasicMaterial color={"purple"}  />
+        <mesh position={[-1 , 0, 0]} scale={0.5}>
+          <torusKnotGeometry   />
+          <meshBasicMaterial color={"green"}  wireframe />
         </mesh>
       
       </group>
