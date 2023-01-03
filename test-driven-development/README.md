@@ -1,46 +1,63 @@
-# Getting Started with Create React App
+## Why test is needed ???
+To ensure that the software is working as expected 
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+**Manual testing**
 
-## Available Scripts
+Individual will interact with the website interacts with it and ensures that everything work as expected.
 
-In the project directory, you can run:
+If a new feature is released the same steps will be repeated again 
 
-### `npm start`
+**Drawbacks**
+- Time consuming
+- Complex repetitive task having risk of human errors
+- May not get a chance to test all the features.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+**Automated Testing**
+Programs that automates the task of testing your softwares
+Write odes to test the softwares.
 
-### `npm test`
+**Advantages**
+- Less time consuming
+- Reliable not prone to have errors
+- Easy to identify and run the breaking tests 
+- Gives confidence while shiping the software
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Jest
+ Jest is a javascript testing framework
+ It is a testrunner , find the test , runs the test , deterine wether the test passes or failed and report it back in a human readable manner .
 
-### `npm run build`
+## React Testing Library
+Javascript testing utility , provides a virtual DOM for testing reat components .
+Core library is DOM testing library and react testing library is just a wrapper around it.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### Types of test
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+1. Unit test
+It focus on testing small building blocks of a application such as class component or function or a component. Each unit of building block in tested in isolation , dependencies are mocked .
+It runs in very short amount of time and make it very easy to pinpoint failures.
+Easy to write and maintain.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+2. Integration test
 
-### `npm run eject`
+3. End to end test (frontend to backend)
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+#### Testing
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+The test() accepts three arguments :
+name : string
+function : fn
+timeout : default timeout is 5 seconds ( how long to wait before aborting the test)
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+The function (test()) and expect() is provided globally by the JEST library 
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+## Test Driven Development
 
-## Learn More
+Development proces where you write test before writing software codes
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+After that you write the codes to ensure the test passes
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+1. Create the test that verify the functonality of a specific feature
+2. Write the spftware codes that runs successfully when reexecuting the code .
+3. Refactor the code for the optimization
+
