@@ -3,6 +3,6 @@ import Greet from ".";
 
 test("should render the greet component" , ()=>{
   render(<Greet/>)
-  const textElement = screen.getByText(/aur bhai kya hal chal/i)
+  const textElement = screen.getByText(/hello world/i)
   expect( textElement).toBeInTheDocument();
 })
