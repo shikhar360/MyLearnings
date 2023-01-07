@@ -76,16 +76,48 @@ For adding a certain limit for coveragage to pass:
 
 ```
 "jest":{
-    "coverageThreshold" : {
-      "global":{
-        "branches": 80,
-        "functions":80,
-        "lines": 80,
-        "statements": -10
-      }
+  "coverageThreshold" : {
+    "global":{
+      "branches": 80,
+      "functions":80,
+      "lines": 80,
+      "statements": -10
+    }
     }
   }
 ```
-JEst assertions can be found in jestjs.io/docs/using-matchers
+Jest assertions can be found in jestjs.io/docs/using-matchers
+https://github.com/testing-library/jest-dom     //already installed
 */
 
+// .getByRole + options
+// Roles are the different role that a element have predefault 
+// https://www.w3.org/TR/html-aria/#docconformance    visit here to know more
+
+// fit for .only   xit .skip
+// it("hello world with name", ()=>{
+//   render( <Greet name={"Shikhar"}/>)
+//   const textElement = screen.getByRole( /*desired role*/ , {
+//     name : "text that is present in the role"                    //casesensitive
+//   })
+//   expect(textElement).toBeInTheDocument();
+// })
+
+
+//-- QueryBy 
+// when the node is present and we dont want to sho it or it is conditionally rendered  we ue queryBy
+
+//-- FindBy
+// when the element is fetched by an API and takes some time to show in the docuument then we use FindBy default time for wait until the contet loads is 1sec but can be modified by passin a second argument as a object 
+
+
+// These all can be (written accouding to priority list)
+
+// ByRole        //getByRole   // queryByRole // findByRole
+// ByLabelText
+// ByPlaceholderText
+// ByText
+// ByDisplayValue
+// ByAltText
+// ByTitle
+// ByTestId
