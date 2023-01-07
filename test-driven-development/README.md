@@ -61,3 +61,10 @@ After that you write the codes to ensure the test passes
 2. Write the spftware codes that runs successfully when reexecuting the code .
 3. Refactor the code for the optimization
 
+Coverage Statement
+
+ "npm run test" or "yarn test" below
+ 
+```json
+"coverage" : "npm run test --coverage --watchAll --collectiveCoverageFrom='src/components/**/*.{ts,tsx}' --collectCoverageFrom='!src/components/**/*.{types,constants,stories,spec,test}.{ts,tsx}' "
+```
