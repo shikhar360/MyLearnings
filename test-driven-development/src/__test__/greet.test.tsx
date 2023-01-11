@@ -124,3 +124,16 @@ https://github.com/testing-library/jest-dom     //already installed
 
 
 // React Custom hooks :
+/*
+import { renderHook } from '@testing-library/react-hooks'
+import useCounter from './useCounter'
+
+test('useCounter should increment the count', () => {
+  const { result } = renderHook(() => useCounter())
+  const { count, increment } = result.current
+
+  expect(count).toBe(0)
+  increment()
+  expect(count).toBe(1)
+})
+*/
