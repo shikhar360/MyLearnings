@@ -137,3 +137,6 @@ test('useCounter should increment the count', () => {
   expect(count).toBe(1)
 })
 */
+//  we use await waitForNextUpdate() that is a part of result form the renderhook function
+//const {result , waitForNextUpdate } = renderHook(()=>useCounter())
+// await waitForNextUpdate()
