@@ -32,10 +32,6 @@ const reducer = (state = initialState, action) => {
 
 const store = createStore(reducer);
 
-
-
-
-
 ```
 
 Step 3: Connect your components to the store
@@ -81,9 +77,41 @@ To render the component, you will need to wrap it with the <Provider> component 
 
 Here is an example of how to render the Counter component:
 
-Copy code
-import
 
+# Redux Toolkit
+
+```js
+
+//configure store
+
+import { configureStore } from '@reduxjs/toolkit';
+import counterSlice from './counterSlice';
+
+const store = configureStore({
+  reducer: {
+    counter: counterSlice.reducer,
+  },
+});
+
+// create slice
+import { createSlice } from '@reduxjs/toolkit';
+
+const counterSlice = createSlice({
+  name: 'counter',
+  initialState: 0,
+  reducers: {
+    increment: state => state + 1,
+    decrement: state => state - 1,
+  },
+});
+
+
+
+
+
+
+
+```
 
 
 --------------------------------------------------------------------------------------------
