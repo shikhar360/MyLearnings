@@ -31,6 +31,11 @@ const reducer = (state = initialState, action) => {
 };
 
 const store = createStore(reducer);
+
+
+
+
+
 ```
 
 Step 3: Connect your components to the store
