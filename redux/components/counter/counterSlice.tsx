@@ -10,7 +10,7 @@ const initialState  : CounterState = {
 }
 
 export const counterSlice  = createSlice({
-  name: "counter",
+  name: "counter",  //this name should be give there in reducer in store.tsx
   initialState,
   reducers: {
    increment : (state) => {

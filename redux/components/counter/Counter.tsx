@@ -1,3 +1,5 @@
+/*
+
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { increment, decrement, reset, incrementByAmount } from "./counterSlice";
@@ -21,7 +23,7 @@ const Counter = () => {
           setAmount(0);
         }}
       >
-        ----RESET---------------
+        ----RESET-------
       </button>
 
       <div>
@@ -33,7 +35,6 @@ const Counter = () => {
           value={amount}
         />
         <button onClick={() => dispatch(incrementByAmount(amount))}>
-          {" "}
           Add BY
         </button>
       </div>
@@ -42,6 +43,9 @@ const Counter = () => {
 };
 
 export default Counter;
+
+*/
+
 
 
 //Not used in this project
