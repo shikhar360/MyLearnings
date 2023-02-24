@@ -9,7 +9,6 @@ export  interface UserState {
 const initialState : UserState[] = [
   { id: "1", name: "Jingalala" },
   { id: "2", name: "BauJi" },
-  { id: "3", name: "ChutiyaSala" },
   { id: "4", name: "Bhagwan"},
   { id: "5", name: "Chedi Singh"}
 ]

@@ -1,6 +1,5 @@
 import React from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { RootState, AppDispatch } from "../../store/store";
+import { useSelector } from "react-redux";
 import { allPosts } from "../post/postSlice";
 import Author from "../post/Author"
 import TimeAgo from "./TimeAgo";
@@ -9,7 +8,7 @@ import ReactionButtons from "./ReactionButtons";
 
 
 const Post = () => {
-  // const dispatch = useDispatch<AppDispatch>();
+ 
   const post = useSelector(allPosts);
 
   const reorder = post.slice().sort((a, b) => b.date.localeCompare(a.date));

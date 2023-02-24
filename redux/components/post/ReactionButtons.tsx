@@ -11,13 +11,14 @@ const reactionEmoji = {
   coffee: "☕",
 };
 
-type IEntry = [string, string]
-interface IProps{
+export type IEntry = [string, string]
+
+export interface IPropsEntry{
   id : string,
   reactions : any
 }
 
-const ReactionButtons = ({ id, reactions }: IProps ) => {
+const ReactionButtons = ({ id, reactions }: IPropsEntry ) => {
   const dispatch = useDispatch<AppDispatch>();
 
   const reactionButtons = Object.entries(reactionEmoji);
@@ -31,7 +32,7 @@ const ReactionButtons = ({ id, reactions }: IProps ) => {
             type="button"
             className="reactionButton"
             onClick={() =>
-              dispatch(reactionAdded({ id: id, reaction: name }))
+              dispatch(reactionAdded({ id: id, reactions: name }))
             }
           >
             {emoji} {reactions[name] }

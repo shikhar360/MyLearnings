@@ -1,7 +1,7 @@
 import { PayloadAction, createSlice, nanoid } from "@reduxjs/toolkit";
 import { RootState } from "../../store/store";
 import { sub } from "date-fns";
-
+import { IPropsEntry } from "./ReactionButtons";
 
 export interface PostState {
   id: string;
@@ -24,8 +24,8 @@ const initialState: PostState[] = [
       wow: 0,
       heart: 0,
       rocket: 0,
-      coffee: 0
-  }
+      coffee: 0,
+    },
   },
   {
     id: "2",
@@ -38,8 +38,8 @@ const initialState: PostState[] = [
       wow: 0,
       heart: 0,
       rocket: 0,
-      coffee: 0
-  }
+      coffee: 0,
+    },
   },
 ];
 
@@ -47,7 +47,6 @@ const postSlice = createSlice({
   name: "post",
   initialState,
   reducers: {
-
     postAdded: {
       reducer: (state, action: PayloadAction<PostState>) => {
         state.push(action.payload);
@@ -65,28 +64,27 @@ const postSlice = createSlice({
               wow: 0,
               heart: 0,
               rocket: 0,
-              coffee: 0
-          }
+              coffee: 0,
+            },
           },
         };
       },
     },
 
-    reactionAdded (state, action) {
-      const { id, reaction } = action.payload;
+    reactionAdded: (state, action: PayloadAction<IPropsEntry>) => {
+      const { id, reactions } = action.payload;
 
       const existingPost = state.find((post) => post.id === id);
-      
-      if (existingPost) {
-        existingPost.reactions[reaction]++;
-      }
-    }
 
+      if (existingPost) {
+        existingPost.reactions[reactions]++;
+      }
+    },
   },
 });
 
 export const allPosts = (state: RootState) => state.post;
 
-export const { postAdded , reactionAdded } = postSlice.actions;
+export const { postAdded, reactionAdded } = postSlice.actions;
 
 export default postSlice.reducer;
