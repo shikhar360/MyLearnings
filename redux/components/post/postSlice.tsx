@@ -3,6 +3,103 @@ import { RootState } from "../../store/store";
 import { sub } from "date-fns";
 import { IPropsEntry } from "./ReactionButtons";
 
+
+//--------------------------------------------------------------------
+// Started using the asyc thunk logic 
+//--------------------------------------------------------------------
+
+interface PostState {
+  posts : any[];
+  status : string;
+  error : string | null;
+}
+
+
+const initialState : PostState = {
+  posts : [],
+  status : "idle" ,
+  error : null 
+}
+
+
+
+const postSlice = createSlice({
+  name: "post",
+  initialState,
+  reducers: {
+    postAdded: {
+      reducer: (state, action: PayloadAction<PostState>) => {
+        state.push(action.payload);
+      },
+      prepare: (title: string, content: string, user: string) => {
+        return {
+          payload: {
+            id: nanoid(),
+            title,
+            content,
+            user,
+            date: new Date().toISOString(),
+            reactions: {
+              thumbsUp: 0,
+              wow: 0,
+              heart: 0,
+              rocket: 0,
+              coffee: 0,
+            },
+          },
+        };
+      },
+    },
+
+    reactionAdded: (state, action: PayloadAction<IPropsEntry>) => {
+      const { id, reactions } = action.payload;
+
+      const existingPost = state.find((post) => post.id === id);
+
+      if (existingPost) {
+        existingPost.reactions[reactions]++;
+      }
+    },
+  },
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
+--------------------------------------------------------------------------
+--------------------------------------------------------------------
+Code of second chapter. 
+--------------------------------------------------------------------------
 export interface PostState {
   id: string;
   title: string;
@@ -82,6 +179,8 @@ const postSlice = createSlice({
     },
   },
 });
+
+*/
 
 export const allPosts = (state: RootState) => state.post;
 
