@@ -1,33 +1,37 @@
-import React from "react";
-import { useSelector } from "react-redux";
-import { allPosts } from "../post/postSlice";
-import Author from "../post/Author"
-import TimeAgo from "./TimeAgo";
-import ReactionButtons from "./ReactionButtons";
+import React , {useEffect} from "react";
+import { useSelector , useDispatch } from "react-redux";
+import { allPosts , getPostsError , getPostsStatus , fetchPosts } from "../post/postSlice";
+import PostExcerpt from "./PostExcerpt";
+import { AppDispatch } from "../../store/store";
 
 
 
 const Post = () => {
  
   const post = useSelector(allPosts);
+  const postsStatus = useSelector(getPostsStatus);
+  const postsError = useSelector(getPostsError);
+  const dispatch = useDispatch<AppDispatch>();
 
   const reorder = post.slice().sort((a, b) => b.date.localeCompare(a.date));
+ 
+  useEffect(()=>{
+   if(postsStatus === "idle"){
+     dispatch(fetchPosts())
+   }
 
+  },[postsStatus, dispatch])
   return (
     <section>
       <h2>Posts</h2>
-      {reorder &&
+      {reorder && postsStatus === "succeeded" &&
         reorder.map((post) => {
           return (
-            <article key={post.id}>
-              <h1>{post.title}</h1>
-              <p>{post.content.substring(0, 100)}</p>
-              <Author userID={post.user} />
-              <TimeAgo time={post.date} />
-              <ReactionButtons id={post.id} reactions={post.reactions} />
-            </article>
+            <PostExcerpt key={post.id} post={post}/>
           );
         })}
+      {postsStatus === "loading" && <div>Loading...</div>}
+      {postsStatus === "failed" && <div>{postsError}</div>}
     </section>
   );
 };
