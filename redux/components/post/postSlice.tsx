@@ -38,7 +38,7 @@ const postSlice = createSlice({
       reducer: (state, action: PayloadAction<PostState>) => {
         state.posts.push(action.payload);
       },
-      prepare: (title: string, content: string, user: string) => {
+      prepare: (title: string, content: string, user: string) : any => {
         return {
           payload: {
             id: nanoid(),
@@ -54,7 +54,7 @@ const postSlice = createSlice({
               coffee: 0,
             },
           },
-        };
+        }
       },
     },
 
