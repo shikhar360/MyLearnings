@@ -185,6 +185,41 @@ Inside the useEffect hook, we use the store.dispatch method to dispatch the fetc
 
 By using useStore, we can directly access the Redux store from our component and dispatch actions to it. This can be useful in situations where we need more control over the dispatching of actions or when we need to directly access the store's state or methods. However, it is generally recommended to use the more specialized useSelector and useDispatch hooks for most use cases.
 
+
+#### createAsyncThunk
+
+Async thunks are typically used to make network requests, fetch data from APIs, or perform other types of asynchronous operations that may take some time to complete.
+
+```js
+import { createAsyncThunk } from '@reduxjs/toolkit'
+import axios from 'axios'
+
+export const fetchUserById = createAsyncThunk(
+  'users/fetchByIdStatus',
+  async (userId, thunkAPI) => {
+    const response = await axios.get(`https://jsonplaceholder.typicode.com/users/${userId}`)
+    return response.data
+  }
+)
+```
+
+In this example, we use the createAsyncThunk function from the @reduxjs/toolkit package to create an async thunk called fetchUserById. The first argument to createAsyncThunk is a string that serves as a prefix for the action types that will be dispatched when this thunk is invoked. The second argument is an async function that contains the logic for the async operation.
+
+The async function takes two arguments: the first argument is the payload that was passed to the thunk when it was dispatched (in this case, the userId), and the second argument is an object that contains several properties, including dispatch and getState, which can be used to interact with the Redux store.
+
+In this example, we use the axios library to make an HTTP GET request to the JSONPlaceholder API to fetch a user by their ID. Once the request is complete, we return the response data as the result of the async thunk. This data can then be accessed by the Redux store and used to update the state of the application.
+
+When the fetchUserById async thunk is dispatched, it will trigger a series of actions with the following action types:
+
+users/fetchByIdStatus/pending: This action is dispatched when the async operation is started.
+users/fetchByIdStatus/fulfilled: This action is dispatched when the async operation is successfully completed, and the result is returned.
+users/fetchByIdStatus/rejected: This action is dispatched if the async operation fails or throws an error.
+By using async thunks in Redux, we can simplify the process of handling asynchronous operations in our applications, and ensure that the state of the application remains consistent and predictable throughout the lifecycle of these operations.
+
+
+
+
+
 --------------------------------------------------------------------------------------------
 
 
