@@ -216,8 +216,13 @@ users/fetchByIdStatus/fulfilled: This action is dispatched when the async operat
 users/fetchByIdStatus/rejected: This action is dispatched if the async operation fails or throws an error.
 By using async thunks in Redux, we can simplify the process of handling asynchronous operations in our applications, and ensure that the state of the application remains consistent and predictable throughout the lifecycle of these operations.
 
+In simple terms 
 
+An async thunk is a function that returns another function, which in turn can be used to dispatch asynchronous actions in a Redux application. The purpose of the async thunk is to allow for more complex and asynchronous logic to be executed before an action is dispatched.
 
+The inner function returned by an async thunk takes two arguments: the dispatch function and the getState function. The dispatch function is used to dispatch actions, and the getState function is used to retrieve the current state of the Redux store.
+
+The async thunk itself is usually an asynchronous function that performs some kind of logic or network request before dispatching an action. This allows for more complex behavior than a simple action creator that immediately dispatches an action.
 
 
 --------------------------------------------------------------------------------------------
