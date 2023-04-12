@@ -18,7 +18,7 @@ Here is an example of how to create a store with an initial state of { count: 0 
 import { createStore } from 'redux';
 
 const initialState = {
-  count: 0
+  count: 3
 };
 
 function reducer(state = initialState, action) {
