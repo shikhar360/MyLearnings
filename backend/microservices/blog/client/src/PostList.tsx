@@ -6,11 +6,11 @@ const PostList = () => {
   const [post, setPost] = useState<any>();
 
   const fetchPost = async () => {
-    const res = await axios.get("http://localhost:4000/posts");
+    const res = await axios.get("http://localhost:4002/posts");
     setPost(res.data);
   };
 
-  useMemo(() => {
+  useEffect(() => {
     fetchPost();
   }, []);
 
@@ -27,7 +27,7 @@ const PostList = () => {
               <div className="card-body">
                 <h3>{post.title}</h3>
                 <CommentCreate postId={post.id as number}/>
-                <CommentList postId={post.id}/>
+                <CommentList comments={post.comments}/>
               </div>
             </div>
           );
