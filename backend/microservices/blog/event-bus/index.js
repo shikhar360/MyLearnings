@@ -5,9 +5,15 @@ const axios = require("axios");
 const app = express();
 app.use(bodyParser.json());
 
+const events = []
+
 app.post("/events", (req, res) => {
   const event = req.body;
   // here we are emmiting event to every microservice with the data that they have sended
+
+  events.push(event)
+
+
   // :4000 && :4001 is just to notify the parent services that data is sended successfully
   axios
     .post("http://localhost:4000/events", event)
@@ -19,10 +25,16 @@ app.post("/events", (req, res) => {
   axios
     .post("http://localhost:4002/events", event)
     .catch((err) => console.log(err));
+  axios
+    .post("http://localhost:4003/events", event)
+    .catch((err) => console.log(err));
 
   res.send({ status: "OK" });
 });
 
+app.get("/events" , (req , res)=>{
+  res.send(events)
+})
 app.listen(4005, () => {
   console.log("listenig on 4005");
 });
