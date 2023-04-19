@@ -43,3 +43,16 @@ docker swarm join: Join a Docker swarm
 docker swarm leave: Leave a Docker swarm
 docker service: Manage Docker services in a swarm
 docker stack: Deploy an application stack to a swarm
+
+### why we use kubernetes
+
+Kubernetes (also known as "K8s") is an open-source container orchestration platform developed by Google that automates the deployment, scaling, and management of containerized applications. It was first released in 2014 and has since become one of the most widely used container orchestration tools in the industry.
+
+what is orchestration ??
+Orchestration refers to the process of coordinating and managing multiple tasks or services to achieve a specific outcome. In the context of software and IT infrastructure, orchestration typically involves automating the deployment, configuration, and management of complex systems and applications.
+
+Kubernetes allows users to deploy and manage containerized applications across a distributed infrastructure, such as public or private cloud environments. It provides a way to abstract the underlying infrastructure, allowing developers to focus on building and deploying applications without having to worry about the underlying infrastructure details.
+
+Kubernetes uses a declarative approach to deployment, meaning that users define the desired state of their applications and Kubernetes works to maintain that state. This allows for automated scaling, self-healing, and rolling updates of applications.
+
+Kubernetes also provides a rich set of features, including service discovery and load balancing, storage orchestration, automatic bin packing, and self-healing, among others. It can be run on-premises or in the cloud, and is highly extensible, with a large ecosystem of plugins and tools available.
