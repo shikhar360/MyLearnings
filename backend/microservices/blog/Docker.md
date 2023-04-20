@@ -44,6 +44,25 @@ docker swarm leave: Leave a Docker swarm
 docker service: Manage Docker services in a swarm
 docker stack: Deploy an application stack to a swarm
 
+### How to create a docker image ???
+- Specify a base image 
+- Run some commands to install additional programs 
+- Specify a command to run on a container startup 
+
+First you have to create a file name "Dockerfile" (with no . extension ) 
+---- add some commands 
+e.g. 
+FROM alpine 
+
+RUN apk add --update redis 
+
+CMD ["redis-server"]
+
+then in the terminal 
+
+docker build .
+
+docker run <hashofbuild>
 ### why we use kubernetes
 
 Kubernetes (also known as "K8s") is an open-source container orchestration platform developed by Google that automates the deployment, scaling, and management of containerized applications. It was first released in 2014 and has since become one of the most widely used container orchestration tools in the industry.
