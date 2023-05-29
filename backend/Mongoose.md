@@ -20,3 +20,30 @@ mongoose.connect(DB , {
   useFindAndModify : false
 }).then(()=> console.log("Db connection established successfully"))
 ```
+
+#### How to create a Schema ?
+We use this to create a simple guideline for doing all the CRUD Operations
+
+To define a schema , we 
+
+```js
+const dataSchema = new mongoose.Schema({
+  // here are the different ways in which we can define schema
+  name : String,
+  price : {
+    type : Number , 
+    required : true ,
+    unique : false
+  },
+  rating : {
+    type : Number , 
+    required : [true , "The error you want to get displayed when it isn't true"]
+  }
+})
+```
+
+How to create a Model out of Schema
+
+`const ModelData = mongoose.model("ModelData" , dataSchema)`
+
+we will use this model to create something in database.
