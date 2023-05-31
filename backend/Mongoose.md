@@ -47,3 +47,40 @@ How to create a Model out of Schema
 `const ModelData = mongoose.model("ModelData" , dataSchema)`
 
 we will use this model to create something in database.
+
+To create a data with this we have to go at a place where we want to use it in controller (in async function ) then
+
+```js
+//this is for creating a data
+const newTour = await ModelData.create(req.body)
+
+// this is for reading a data
+const tour = await ModelData.find() //to get all the data
+const tour = await ModelData.findById(req.params.id) // to get the data by id
+// const tour = await ModelData.findOne({_id : abcd }) // this is same as above 
+
+//this is for updating data
+const tour = await ModelData.findByIdAndUpdate(req.params.id , req.body , {
+  new: true, // this will return new data default is the old one
+  runValidators : true
+})
+
+//this is to delete the data
+const deletedtour = await ModelData.findByIdAndDelete(req.params.id )
+// we dont really need to return thing when we delete something from the api
+
+res.status(201).json({
+  status: "success",
+  data : {
+    tour : newTour  // tour
+  }
+})
+
+catch(err){
+  res.status(400).json({
+    status: "fail",
+    message : err.message
+  })
+}
+
+```
